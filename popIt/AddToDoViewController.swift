@@ -17,6 +17,8 @@ class AddToDoViewController: UIViewController {
     
     @IBOutlet weak var importanceSwitch: UISwitch!
     
+    @IBOutlet weak var datePicker: UIDatePicker!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +33,7 @@ class AddToDoViewController: UIViewController {
             if let titleText = titleTextField.text {
                 toDo.name = titleText
                 toDo.importance = importanceSwitch.isOn
+                toDo.date = datePicker.date
             }
             
             try? context.save()
@@ -52,17 +55,5 @@ class AddToDoViewController: UIViewController {
 //        previousVC.tableView.reloadData()
 //        navigationController?.popViewController(animated: true)
     }
-    
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
