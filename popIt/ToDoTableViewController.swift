@@ -1,5 +1,5 @@
 //
-//  TableViewController.swift
+//  ToDoTableViewController.swift
 //  popIt
 //
 //  Created by Ella Isgar on 8/14/19.
@@ -8,41 +8,46 @@
 
 import UIKit
 
-class TableViewController: UITableViewController {
+class ToDoTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-    }
-
-    // MARK: - Table view data source
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
-    //how many cells are currently displayed
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        return 6
-    }
-
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "toDoListItem", for: indexPath)
+        toDos = createToDos()
+        
+    }
+    
+    var toDos : [toDo] = []
+    
+    func createToDos() -> [toDo] {
+        let first = toDo(n: "SATs", d: "Don't fail", i: true)
+        
+        let second = toDo(n: "Cat litter", d: "stinky", i: false)
+        
+        print(toDos)
+        
+        return [first, second]
+    }
 
-        // Configure the cell...
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return toDos.count
+    }
+
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        
+        let toDo = toDos[indexPath.row]
+        
+        if toDo.importance{
+            cell.textLabel?.text = " 🔴 " + toDo.name
+        } else {
+            cell.textLabel?.text = toDo.name
+        }
 
         return cell
     }
-    
 
     /*
     // Override to support conditional editing of the table view.
