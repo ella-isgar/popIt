@@ -7,27 +7,25 @@
 //
 
 import UIKit
+import CoreData
 
 class ToDoTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        toDos = createToDos()
-        
     }
     
-    var toDos : [ToDo] = []
+    var toDos : [ToDoCD] = []
     
-    func createToDos() -> [ToDo] {
-        let first = ToDo()
-        
-        let second = ToDo()
-        
-        print(toDos)
-        
-        return [first, second]
-    }
+//    func createToDos() -> [ToDo] {
+//        let first = ToDo()
+//
+//        let second = ToDo()
+//
+//        print(toDos)
+//
+//        return [first, second]
+//    }
 
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -41,7 +39,7 @@ class ToDoTableViewController: UITableViewController {
         let toDo = toDos[indexPath.row]
         
         if toDo.importance{
-            cell.textLabel?.text = " 🔴 " + toDo.name
+            cell.textLabel?.text = " 🔴 " + toDo.name!
         } else {
             cell.textLabel?.text = toDo.name
         }
@@ -61,7 +59,7 @@ class ToDoTableViewController: UITableViewController {
         }
         
         if let completeVC = segue.destination as? CompleteToDoViewController {
-            if let toDo = sender as? ToDo {
+            if let toDo = sender as? ToDoCD {
                 completeVC.selectedToDo = toDo
                 completeVC.previousVC = self
             }
@@ -73,5 +71,19 @@ class ToDoTableViewController: UITableViewController {
         let toDo = toDos[indexPath.row]
         
         performSegue(withIdentifier: "moveToComplete", sender: toDo)
+    }
+    
+    func getToDos() {
+        if let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext {
+            
+            if let coreDataToDos = try? context.fetch(ToDoCD.fetchRequest()) as? [ToDoCD] {
+                toDos = coreDataToDos
+                tableView.reloadData()
+            }
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        getToDos()
     }
 }
