@@ -8,15 +8,15 @@
 
 import UIKit
 
-class toDo {
+class ToDo {
     var name = ""
     var desc = ""
     var importance = false
     
     
-    init(n : String, d : String, i : Bool) {
-        name = n
-        desc = d
-        importance = i
+    init() {
+        name = ""
+        desc = ""
+        importance = false
     }
 }
