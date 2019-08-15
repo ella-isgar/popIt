@@ -45,23 +45,15 @@ class ToDoTableViewController: UITableViewController {
         dateFormatter.dateStyle = .long
         
         dateFormatter.timeStyle = .short
-
-//        if dateFormatter.string(from: toDo.date) != nil {
-//            let dateString = dateFormatter.string(from: toDo.date!)
-//
-//            if toDo.importance{
-//                cell.textLabel?.text = " 🔴 " + toDo.name! + "-" + dateString
-//            } else {
-//                cell.textLabel?.text = " ✳️ " + toDo.name! + "-" + dateString
-//            }
-//        }
+        
+        let dateString = dateFormatter.string(from: toDo.date!)
         
         if toDo.importance{
-            cell.textLabel?.text = " 🔴 " + toDo.name! + "-"
-        } else {
-            cell.textLabel?.text = " ✳️ " + toDo.name! + "-"
-        }
-
+                cell.textLabel?.text = " 🔴 " + toDo.name! + "-" + dateString
+            } else {
+                cell.textLabel?.text = " ✳️ " + toDo.name! + "-" + dateString
+            }
+    
         return cell
         
         //+ "(" + toDo.date + ")"
